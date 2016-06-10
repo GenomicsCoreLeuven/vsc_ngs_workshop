@@ -12,7 +12,7 @@ Part 2 contains the "genomics" part of the course:
 * a project driven approach in the exercises, containing an assembly, mapping and variant calling
 * parallel processing
 
-##Data and scripts
+##Scripts and Data
 All used data and scripts are available in this repository.
 The data do not need transformations or editing.
 The scripts will have to be changed in order to be able to run.
