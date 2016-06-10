@@ -1,0 +1,39 @@
+#!/bin/bash -l
+#PBS -l walltime=12:00:00
+#PBS -l mem=20gb
+#PBS -l nodes=1:ppn=1
+#PBS -M noreply@genomicscore.be
+#PBS -N freebayes
+#PBS -A default_project
+module load FreeBayes/1.0.2-15-g357f175-intel-2014a
+
+GENOME_DIR="$VSC_DATA/tutorial/denovo/abyss_output";
+BAM_DIR="$VSC_DATA/tutorial/mapping";
+FREEBAYES_OPTIONS="-m 20 -q 15 --use-duplicate-reads --ploidy 2 ";
+FREEBAYES_OUTPUT_FILE_NAME="freebayes.m20.q15.useduplicates.ploidy2.vcf";
+OUTPUT_DIR="$VSC_DATA/tutorial/freebayes";
+SCRATCH_DIR=$VSC_SCRATCH_NODE;
+
+cd $SCRATCH_DIR;
+mkdir genome;
+cd genome;
+rsync -ahrL $GENOME_DIR/genome.fa* .;
+cd $SCRATCH_DIR;
+mkdir bams;
+cd bams;
+rsync -ahr $BAM_DIR/*bam* .;
+cd $SCRATCH_DIR;
+
+bamfiles="";
+for i in `ls -1 -d $SCRATCH_DIR/bams/*bam`;
+do
+	bamfiles="$bamfiles $i";
+done
+
+freebayes --fasta-reference $SCRATCH_DIR/genome/genome.fa $FREEBAYES_OPTIONS $bamfiles > $SCRATCH_DIR/$FREEBAYES_OUTPUT_FILE_NAME;
+
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $SCRATCH_DIR/$FREEBAYES_OUTPUT_FILE_NAME .;
+rm -rf $SCRATCH_DIR/genome;
+rm -rf $SCRATCH_DIR/bams;

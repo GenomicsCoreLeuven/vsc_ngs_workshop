@@ -1,0 +1,25 @@
+#!/bin/bash -l
+#PBS -l walltime=00:05:00
+#PBS -l mem=240gb
+#PBS -l nodes=1:ppn=10
+#PBS -M noreply@genomicscore.be
+#PBS -m aeb
+#PBS -N abyss
+#PBS -A default_project
+#PBS -l partition=smp1
+module use /apps/leuven/thinking/2015a/modules/all 
+module load ABySS/1.9.0-intel-2015a-Python-2.7.9
+
+cd $VSC_SCRATCH_NODE;
+mkdir abyss_output;
+cd abyss_output;
+rsync $VSC_DATA/tutorial/denovo/*.gz .;
+gunzip *gz;
+
+#normal run
+abyss-pe name="genome_k31" k=31 se="test_assembly_data.R1.fastq" np=10 j=10;
+
+rm *fastq;
+cd $VSC_DATA/tutorial/denovo;
+rsync -ahr $VSC_SCRATCH_NODE/abyss_output .;
+rm -rf $VSC_SCRATCH_NODE/abyss_*;

@@ -1,0 +1,57 @@
+#!/bin/bash -l
+#PBS -l walltime=00:10:00
+#PBS -l mem=100gb
+#PBS -l nodes=1:ppn=10:ivybridge
+#PBS -M noreply@genomicscore.be
+#PBS -m aeb
+#PBS -N bowtie_mapping
+#PBS -A default_project
+module use /apps/leuven/thinking/2015a/modules/all 
+module use /staging/leuven/stg_00019/software/modulefiles
+module load Bowtie2/2.2.4-intel-2015a
+module load SAMtools/1.1-intel-2015a
+module load picard/2.2.2-Java1.8.0_77
+
+GENOME_DIR="$VSC_SCRATCH/genome/genome";
+SAMPLE_DIR="$VSC_DATA/tutorial/mapping";
+OUTPUT_DIR="$VSC_DATA/tutorial/mapping";
+SCRATCH_DIR=$VSC_SCRATCH_NODE;
+
+#do the copy and the mapping
+cd $SCRATCH_DIR;
+mkdir -p  $SCRATCH_DIR/$SAMPLE;
+cd $SCRATCH_DIR/$SAMPLE;
+
+rsync -ahr $SAMPLE_DIR/$SAMPLE*.fastq.gz $SCRATCH_DIR/$SAMPLE/;
+gunzip *gz;
+FASTQ_FILES="";
+if [ -f $SAMPLE.R2.fastq ];
+then 
+	#paired end mapping
+	FASTQ_FILES="-1 $SCRATCH_DIR/$SAMPLE/$SAMPLE.R1.fastq -2 $SCRATCH_DIR/$SAMPLE/$SAMPLE.R2.fastq";
+else
+	#single read mapping
+	FASTQ_FILES="$SCRATCH_DIR/$SAMPLE/$SAMPLE.R1.fastq";
+fi
+
+bowtie2 -q -p 1 --seed 1 --local -x $GENOME_DIR $FASTQ_FILES > $SCRATCH_DIR/$SAMPLE/mapped.sam 2> $SCRATCH_DIR/$SAMPLE/$SAMPLE.bowtie2.log;
+rm *fastq;
+
+samtools view -bS $SCRATCH_DIR/$SAMPLE/mapped.sam > $SCRATCH_DIR/$SAMPLE/mapped.bam;
+rm -r $SCRATCH_DIR/$SAMPLE/mapped.sam;
+samtools sort $SCRATCH_DIR/$SAMPLE/mapped.bam $SCRATCH_DIR/$SAMPLE/$SAMPLE.sorted;
+#samtools index -b $SCRATCH_DIR/$SAMPLE/$SAMPLE.bam;
+rm -r $SCRATCH_DIR/$SAMPLE/mapped.bam;
+
+#run picard tools for correcting readgroups...
+picard AddOrReplaceReadGroups I=$SCRATCH_DIR/$SAMPLE/$SAMPLE.sorted.bam O=$SCRATCH_DIR/$SAMPLE/$SAMPLE.bam RGID=$SAMPLE RGLB=$SAMPLE RGPL=illumina RGSM=$SAMPLE RGPU=$SAMPLE RGCN=GenomicsCoreLeuven CREATE_INDEX=TRUE;
+
+rm $SCRATCH_DIR/$SAMPLE/$SAMPLE.sorted.bam;
+
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $SCRATCH_DIR/$SAMPLE/$SAMPLE* .;
+rm -rf $SCRATCH_DIR/$SAMPLE;
+
+
+
