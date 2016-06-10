@@ -4,7 +4,7 @@ It contains all scripts, data and presentations.
 
 ##Guide
 This is a complete guide, which is an introduction to every aspect of the HPC for regular usage.
-Most examples are configured in a Biological background. The appendices contains a very usefull cheat sheet (contains all commands, and a brief overview), the excersises of the workshop, including all the answers.
+Most examples are configured in a Biological background. The appendices contain a very usefull cheat sheet (contains all commands, and a brief overview), the excersises of the workshop, including all the answers.
 
 ##Presentations
 This github repository contains 2 presentations, a Part 1 and a Part 2.
@@ -12,7 +12,7 @@ Part 1 contains an introduction to the HPC:
 * hardware description (cpu, storage, ...)
 * credit usage
 * simple job submission
-Part 2 contains the "genomics" part of the course:
+Part 2 contains the "genomics" application part of the course:
 * a project driven approach in the exercises, containing an assembly, mapping and variant calling
 * parallel processing
 
