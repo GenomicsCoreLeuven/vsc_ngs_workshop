@@ -11,7 +11,7 @@ This github repository contains 2 presentations, a Part 1 and a Part 2.
 Part 1 contains an introduction to the HPC:
 * hardware description (cpu, storage, ...)
 * credit usage
-* simple job submision
+* simple job submission
 Part 2 contains the "genomics" part of the course:
 * a project driven approach in the exercises, containing an assembly, mapping and variant calling
 * parallel processing
