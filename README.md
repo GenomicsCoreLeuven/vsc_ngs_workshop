@@ -2,6 +2,10 @@
 This is the repository of the Genomics Core High Performance Computing for Genomics workshop.
 It contains all scripts, data and presentations.
 
+##Guide
+This is a complete guide, which is an introduction to every aspect of the HPC for regular usage.
+Most examples are configured in a Biological background. The appendices contains a very usefull cheat sheet (contains all commands, and a brief overview), the excersises of the workshop, including all the answers.
+
 ##Presentations
 This github repository contains 2 presentations, a Part 1 and a Part 2.
 Part 1 contains an introduction to the HPC:
