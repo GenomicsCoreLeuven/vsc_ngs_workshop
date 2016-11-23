@@ -27,6 +27,7 @@ FREEBAYES_OUTPUT_FILE_NAME="freebayes.m20.q15.ploidy2.vcf";
 mkdir -p $SCRATCH_DIR/genome;
 cd $SCRATCH_DIR/genome;
 rsync -ahrL $GENOME* .;
+mv genome_k31-unitigs.fa genome.fa;
 #copy all the bam files
 mkdir -p $SCRATCH_DIR/bams;
 cd $SCRATCH_DIR/bams;

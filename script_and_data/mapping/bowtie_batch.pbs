@@ -29,17 +29,17 @@ cd $TMP_DIR;
 #This initiates the copy command. Note that here the $SAMPLE variable is used. This variable comes from the sample data file.
 rsync -ahr $SAMPLE_DIR/$SAMPLE*.fastq.gz .;
 gunzip *gz;
-FASTQ_FILE=$TMP_DIR/$SAMPLE".fastq";
+FASTQ_FILE=$TMP_DIR/$SAMPLE".R1.fastq";
 
 #Do the actual mapping, using bowtie2
-bowtie2 -q -p 1 --seed 1 --local --rg-id $SAMPLE --rg ID=$SAMPLE --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/$SAMPLE.bowtie2.log;
+bowtie2 -q -p 1 --seed 1 --local --rg-id $SAMPLE --rg ID=$SAMPLE --rg LB=$SAMPLE --rg SM=$SAMPLE --rg PU=$SAMPLE --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/$SAMPLE.bowtie2.log;
 
 rm *fastq;	#clean the tmp directory: remove the input fastq
 
 #BAM modifications
 samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
 rm -r $TMP_DIR/mapped.sam;
-samtools sort $TMP_DIR/mapped.bam $TMP_DIR/$SAMPLE.sorted;	#sort bam file according to chromosome position (previous in fastq order)
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/$SAMPLE;	#sort bam file according to chromosome position (previous in fastq order)
 rm -r $TMP_DIR/mapped.bam;
 samtools index -b $TMP_DIR/$SAMPLE.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
 rm $TMP_DIR/$SAMPLE.sorted.bam;
