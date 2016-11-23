@@ -17,6 +17,7 @@ You will see that the complete git repository is now available in your $VSC_DATA
 ##Exercise 1
 Since no tasks can be performed without raw data, and results should be kept for longer periodes, storage is an important feature of a cluster. Therefor the first exercise is to check the different environment variables, and find there complete path.
 Find the path for the following locations:
+
 | Storage Type | Environment Variable | Path |
 |--------------|:--------------------:|------|
 | Home | $VSC_HOME | |
