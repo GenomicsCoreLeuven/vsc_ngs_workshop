@@ -69,6 +69,7 @@ module help
 
 
 | Cluster | Partition | CPUType | #nodes | #cores (threads) per node | Internal disk (Node Scratch) | Useable Memory (RAM) per node | #credits/hour |
+|---------|-----------|---------|--------|---------------------------|------------------------------|-------------------------------|---------------|
 | ThinKing | Ivybridge | Ivybridge | 208 | 20 | 250GB | 60GB (176nodes) - 124GB (32nodes) | 4.76 |
 | ThinKing | Haswell | Haswell | 144 | 24 | 150GB | 60GB (42nodes) - 124GB (96nodes) | 6.68 |
 | Cerebro | Smp1 | Ivybridge | 48 | 10 | shared 10TB | shared 250GB (max 11.77TB) | 3.45 |
