@@ -80,6 +80,7 @@ Typical tasks run on the different clusters/partitions:
 
 
 | Cluster | Partition | Task Description | Task Example |
+|---------|-----------|------------------|--------------|
 | ThinKing | Ivybridge | Memory low jobs, with lots of I/O | Alignment, Read Mapping, Variant Calling, Read Counting, ... |
 | ThinKing | Haswell | Memory low jobs, low I/O, high computing power needed | Model Calculations, Sample clustering, Intensive populations studies (Differential expression analysis) | 
 | Cerebro | Smp1 and Smp2 | High memory jobs, computing power less important | De Novo Assemblies, Reference based Assemblies, ... |
