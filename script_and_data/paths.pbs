@@ -7,8 +7,8 @@
 #PBS -N paths 
 #PBS -A default_project
 
-echo $VSC_HOME >> $VSC_DATA/tutorial/paths.txt;
-echo $VSC_DATA >> $VSC_DATA/tutorial/paths.txt;
-echo $VSC_SCRATCH >> $VSC_DATA/tutorial/paths.txt;
-echo $VSC_SCRATCH_NODE >> $VSC_DATA/tutorial/paths.txt;
+echo $VSC_HOME >> $VSC_DATA/paths.txt;
+echo $VSC_DATA >> $VSC_DATA/paths.txt;
+echo $VSC_SCRATCH >> $VSC_DATA/paths.txt;
+echo $VSC_SCRATCH_NODE >> $VSC_DATA/paths.txt;
 sleep 240;

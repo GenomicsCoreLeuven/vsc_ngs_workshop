@@ -6,52 +6,49 @@
 #PBS -m aeb
 #PBS -N bowtie_mapping
 #PBS -A default_project
+
 module use /apps/leuven/thinking/2015a/modules/all 
-module use /staging/leuven/stg_00019/software/modulefiles
 module load Bowtie2/2.2.4-intel-2015a
 module load SAMtools/1.1-intel-2015a
-module load picard/2.2.2-Java1.8.0_77
 
-GENOME_DIR="$VSC_SCRATCH/genome/genome";
-SAMPLE_DIR="$VSC_DATA/tutorial/mapping";
-OUTPUT_DIR="$VSC_DATA/tutorial/mapping";
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="$VSC_DATA";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
 SCRATCH_DIR=$VSC_SCRATCH_NODE;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
 
-#do the copy and the mapping
-cd $SCRATCH_DIR;
-mkdir -p  $SCRATCH_DIR/$SAMPLE;
-cd $SCRATCH_DIR/$SAMPLE;
+GENOME_DIR="$VSC_SCRATCH/genome/genome";	#This must be the directory where the genome index is (see prolog)
 
-rsync -ahr $SAMPLE_DIR/$SAMPLE*.fastq.gz $SCRATCH_DIR/$SAMPLE/;
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the $SAMPLE variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/$SAMPLE*.fastq.gz .;
 gunzip *gz;
-FASTQ_FILES="";
-if [ -f $SAMPLE.R2.fastq ];
-then 
-	#paired end mapping
-	FASTQ_FILES="-1 $SCRATCH_DIR/$SAMPLE/$SAMPLE.R1.fastq -2 $SCRATCH_DIR/$SAMPLE/$SAMPLE.R2.fastq";
-else
-	#single read mapping
-	FASTQ_FILES="$SCRATCH_DIR/$SAMPLE/$SAMPLE.R1.fastq";
-fi
+FASTQ_FILE=$TMP_DIR/$SAMPLE".fastq";
 
-bowtie2 -q -p 1 --seed 1 --local -x $GENOME_DIR $FASTQ_FILES > $SCRATCH_DIR/$SAMPLE/mapped.sam 2> $SCRATCH_DIR/$SAMPLE/$SAMPLE.bowtie2.log;
-rm *fastq;
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id $SAMPLE --rg ID=$SAMPLE --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/$SAMPLE.bowtie2.log;
 
-samtools view -bS $SCRATCH_DIR/$SAMPLE/mapped.sam > $SCRATCH_DIR/$SAMPLE/mapped.bam;
-rm -r $SCRATCH_DIR/$SAMPLE/mapped.sam;
-samtools sort $SCRATCH_DIR/$SAMPLE/mapped.bam $SCRATCH_DIR/$SAMPLE/$SAMPLE.sorted;
-#samtools index -b $SCRATCH_DIR/$SAMPLE/$SAMPLE.bam;
-rm -r $SCRATCH_DIR/$SAMPLE/mapped.bam;
+rm *fastq;	#clean the tmp directory: remove the input fastq
 
-#run picard tools for correcting readgroups...
-picard AddOrReplaceReadGroups I=$SCRATCH_DIR/$SAMPLE/$SAMPLE.sorted.bam O=$SCRATCH_DIR/$SAMPLE/$SAMPLE.bam RGID=$SAMPLE RGLB=$SAMPLE RGPL=illumina RGSM=$SAMPLE RGPU=$SAMPLE RGCN=GenomicsCoreLeuven CREATE_INDEX=TRUE;
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/$SAMPLE.sorted;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/$SAMPLE.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/$SAMPLE.sorted.bam;
 
-rm $SCRATCH_DIR/$SAMPLE/$SAMPLE.sorted.bam;
-
+#copy the data to the output
 mkdir -p $OUTPUT_DIR;
 cd $OUTPUT_DIR;
-rsync -ahr $SCRATCH_DIR/$SAMPLE/$SAMPLE* .;
-rm -rf $SCRATCH_DIR/$SAMPLE;
+rsync -ahr $TMP_DIR/$SAMPLE* .;
+rm -rf $TMP_DIR;
 
 
 

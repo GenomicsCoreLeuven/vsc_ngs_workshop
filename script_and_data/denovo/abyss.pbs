@@ -7,19 +7,34 @@
 #PBS -N abyss
 #PBS -A default_project
 #PBS -l partition=smp1
-module use /apps/leuven/thinking/2015a/modules/all 
-module load ABySS/1.9.0-intel-2015a-Python-2.7.9
+##Above you see the PBS headers.
+##Here all modules are loaded. 
+module use /apps/leuven/thinking/2015a/modules/all	#This line is similar as the "source switch_to_2015a" command, but historically the source switch did not perform well on cerebro
+module load ABySS/1.9.0-intel-2015a-Python-2.7.9	#This loads the abyss module
 
-cd $VSC_SCRATCH_NODE;
-mkdir abyss_output;
-cd abyss_output;
-rsync $VSC_DATA/tutorial/denovo/*.gz .;
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="$VSC_DATA";	#This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+INPUT_DIR="$GIT_DIR/script_and_data/denovo";
+SCRATCH_DIR=$VSC_SCRATCH_NODE;
+OUTPUT_DIR="$GIT_DIR/results/denovo";
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#here the fastq.gz file is copied to the TMP_DIR
+rsync $INPUT_DIR/*.gz .;
 gunzip *gz;
 
-#normal run
+#normal run of the abyss command, using 31 as kmer
 abyss-pe name="genome_k31" k=31 se="test_assembly_data.R1.fastq" np=10 j=10;
 
-rm *fastq;
-cd $VSC_DATA/tutorial/denovo;
-rsync -ahr $VSC_SCRATCH_NODE/abyss_output .;
-rm -rf $VSC_SCRATCH_NODE/abyss_*;
+#cleaning and copy of the results
+rm *fastq;	#removal of the input data
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/* .;
+rm -rf $TMP_DIR;

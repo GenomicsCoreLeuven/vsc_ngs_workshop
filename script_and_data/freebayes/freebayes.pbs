@@ -1,39 +1,50 @@
-#!/bin/bash -l
+#bin/bash -l
 #PBS -l walltime=12:00:00
 #PBS -l mem=20gb
 #PBS -l nodes=1:ppn=1
 #PBS -M noreply@genomicscore.be
 #PBS -N freebayes
 #PBS -A default_project
-module load FreeBayes/1.0.2-15-g357f175-intel-2014a
+source switch_to_2015a
+module load freebayes/1.0.2-33-foss-2015a
 
-GENOME_DIR="$VSC_DATA/tutorial/denovo/abyss_output";
-BAM_DIR="$VSC_DATA/tutorial/mapping";
-FREEBAYES_OPTIONS="-m 20 -q 15 --use-duplicate-reads --ploidy 2 ";
-FREEBAYES_OUTPUT_FILE_NAME="freebayes.m20.q15.useduplicates.ploidy2.vcf";
-OUTPUT_DIR="$VSC_DATA/tutorial/freebayes";
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="$VSC_DATA";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+INPUT_DIR="$GIT_DIR/results/mapped";
 SCRATCH_DIR=$VSC_SCRATCH_NODE;
+OUTPUT_DIR="$GIT_DIR/results/freebayes";
 
-cd $SCRATCH_DIR;
-mkdir genome;
-cd genome;
-rsync -ahrL $GENOME_DIR/genome.fa* .;
-cd $SCRATCH_DIR;
-mkdir bams;
-cd bams;
+
+GENOME="$GIT_DIR/results/denovo/genome_k31-unitigs.fa";
+BAM_DIR="$GIT_DIR/results/mapping";
+
+FREEBAYES_OPTIONS="-m 20 -q 15 --ploidy 2 ";
+FREEBAYES_OUTPUT_FILE_NAME="freebayes.m20.q15.ploidy2.vcf";
+
+#Note if you work on the VSC_SCRATCH_NODE, this complete directory is yours. As this script runs on only 1 core, no other processes can interfere in the data.
+#set the genome
+mkdir -p $SCRATCH_DIR/genome;
+cd $SCRATCH_DIR/genome;
+rsync -ahrL $GENOME* .;
+#copy all the bam files
+mkdir -p $SCRATCH_DIR/bams;
+cd $SCRATCH_DIR/bams;
 rsync -ahr $BAM_DIR/*bam* .;
-cd $SCRATCH_DIR;
-
+#list all the bam files to 1 variable
 bamfiles="";
 for i in `ls -1 -d $SCRATCH_DIR/bams/*bam`;
 do
 	bamfiles="$bamfiles $i";
 done
 
+#do the variant calling
 freebayes --fasta-reference $SCRATCH_DIR/genome/genome.fa $FREEBAYES_OPTIONS $bamfiles > $SCRATCH_DIR/$FREEBAYES_OUTPUT_FILE_NAME;
 
+#copy the data
 mkdir -p $OUTPUT_DIR;
 cd $OUTPUT_DIR;
 rsync -ahr $SCRATCH_DIR/$FREEBAYES_OUTPUT_FILE_NAME .;
-rm -rf $SCRATCH_DIR/genome;
-rm -rf $SCRATCH_DIR/bams;
+#all data on the VSC_SCRATCH_node is automatically deleted after the job ends, so you do not need to remove
+#rm -rf $SCRATCH_DIR/genome;
+#rm -rf $SCRATCH_DIR/bams;
