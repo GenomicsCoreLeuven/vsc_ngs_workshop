@@ -9,6 +9,8 @@ Most examples are configured in a Biological background. The appendices contain 
 ##Presentations
 This github repository contains 4 presentations, a Linux prelude, a Part 1, a Part 2 and a Part 3.
 
+The Prelude includes an small overview of commands needed to be be able to follow the other parts. For a good, more complete tutorial see this [Linux Guide for Beginners](http://www.ee.surrey.ac.uk/Teaching/Unix/ "Linux Guide for Beginners")
+
 Part 1 contains an introduction to the HPC:
 * hardware description (cpu, storage, ...)
 * credit usage
