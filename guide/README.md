@@ -47,6 +47,11 @@ chmod 754 -R myfile
 chgrp -R groupname filename
 #change the owner of a file
 chown -R username filename
+
+#check your used storage and limit on staging
+mmlsquota  -j stg_000XX --block-size auto vol_ddn2
+#on archive
+mmlsquota  -j arc_000XX --block-size auto vol_ddn2
 ```
 ## The Module System
 ```bash
