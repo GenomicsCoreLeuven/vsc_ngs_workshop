@@ -117,6 +117,13 @@ showstart jobID
 checkjob jobID
 #show the status of the cluster
 pbstop
+
+#start a job automatically when another job finishes:
+#start job1:
+qsub job1.pbs
+#returns JOB_ID
+#start job2, waiting on job1 to finish:
+qsub -W depend=afterany:JOB_ID job2.pbs
 ```
 ## Parallel Jobs
 ```bash
