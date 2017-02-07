@@ -122,8 +122,10 @@ pbstop
 #start job1:
 qsub job1.pbs
 #returns JOB_ID
-#start job2, waiting on job1 to finish:
+#start job2, waiting on job1 to end (any status, including finished and aborted or error):
 qsub -W depend=afterany:JOB_ID job2.pbs
+#start job2, waiting on job1 to end (only finished, no error or not aborted)
+qsub -W depend=afterok:JOB_ID job2.pbs
 ```
 ## Parallel Jobs
 ```bash
