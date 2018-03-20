@@ -13,15 +13,15 @@ ssh vsc3XXXX@login.hpc.kuleuven.be
 #load the accounting module
 module load accounting
 #check how many credits you have left
-gbalance
+mam-balance
 #ask a quote for this resources
 gquote -l nodes=3:ppn=4:ivybridge,pmem=2gb,walltime=48:00:00
 #get an overview of all jobs
-gstatement
+mam-statement
 #get an overview of all jobs in the month september for the lp_projectname
 gstatement -g lp_projectname -s 2015-09-01 -e 2015-09-30
 #get infromation about a job
-glsjob -J jobID
+mam-list-transactions -J jobID
 ```
 
 ## Storage
