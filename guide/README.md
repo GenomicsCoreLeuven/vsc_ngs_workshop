@@ -19,7 +19,7 @@ gquote -l nodes=3:ppn=4:ivybridge,pmem=2gb,walltime=48:00:00
 #get an overview of all jobs
 mam-statement
 #get an overview of all jobs in the month september for the lp_projectname
-gstatement -g lp_projectname -s 2015-09-01 -e 2015-09-30
+mam-statement -g lp_projectname -s 2015-09-01 -e 2015-09-30
 #get infromation about a job
 mam-list-transactions -J jobID
 ```
