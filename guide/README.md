@@ -6,7 +6,19 @@ A quick overview of all available commands and variables.
 Account and groups are managed through: [https://account.vscentrum.be/django/](https://account.vscentrum.be/django/)
 ```bash
 #login to the VSC (vsc3XXXXX is your user id)
+#for thinking and cerebro
 ssh vsc3XXXX@login.hpc.kuleuven.be
+#or
+ssh vsc3XXXX@login2.hpc.kuleuven.be
+
+#for genius
+ssh vsc3XXXX@login1-tier2.hpc.kuleuven.be
+#or
+ssh vsc3XXXX@login2-tier2.hpc.kuleuven.be
+#genius login nodes for visualization:
+ssh -X vsc3XXXX@login3-tier2.hpc.kuleuven.be
+#or
+ssh -X vsc3XXXX@login4-tier2.hpc.kuleuven.be
 ```
 ## Credits
 ```bash
@@ -75,10 +87,12 @@ module help
 
 | Cluster | Partition | CPUType | #nodes | #cores (threads) per node | Internal disk (Node Scratch) | Useable Memory (RAM) per node | #credits/hour |
 |---------|-----------|---------|--------|---------------------------|------------------------------|-------------------------------|---------------|
-| ThinKing | Ivybridge | Ivybridge | 208 | 20 | 250GB | 60GB (176nodes) - 124GB (32nodes) | 4.76 |
-| ThinKing | Haswell | Haswell | 144 | 24 | 150GB | 60GB (42nodes) - 124GB (96nodes) | 6.68 |
+| ThinKing | Ivybridge | Ivybridge | 208 | 20 | 200GB | 60GB (176nodes) - 124GB (32nodes) | 4.76 |
+| ThinKing | Haswell | Haswell | 144 | 24 | 100GB | 60GB (42nodes) - 124GB (96nodes) | 6.68 |
 | Cerebro | Smp1 | Ivybridge | 48 | 10 | shared 10TB | shared 250GB (max 11.77TB) | 3.45 |
 | Cerebro | Smp2 | Ivybridge | 16 | 10 | shared 10TB | shared 124GB (max 1.79TB) | 3.45 |
+| Genius | | Skylake | 86 | 36 | 800GB | 192GB | 10.01 |
+| Genius | bigmem | Skylake | 10 | 36 | 800GB | 768GB | 10.01 |
 
 
 Typical tasks run on the different clusters/partitions:
@@ -89,6 +103,8 @@ Typical tasks run on the different clusters/partitions:
 | ThinKing | Ivybridge | Memory low jobs, with lots of I/O | Alignment, Read Mapping, Variant Calling, Read Counting, ... |
 | ThinKing | Haswell | Memory low jobs, low I/O, high computing power needed | Model Calculations, Sample clustering, Intensive populations studies (Differential expression analysis) | 
 | Cerebro | Smp1 and Smp2 | High memory jobs, computing power less important | De Novo Assemblies, Reference based Assemblies, ... |
+| Genius | | Same type of jobs like on Thinking | |
+| Genius | bigmem | Same type of jobs like on Cerebro | |
 
 
 ## Portable Batch System
