@@ -2,6 +2,8 @@
 
 This are solutions for the exercises on the VSC.
 
+> Note: these solutions were made in 2016 for the Thinking cluster. Since 2019, you will have to use the Genius cluster. Therefor some tools and versions are not up to date.
+
 #PART 1: High Performance Computing
 
 ##Exercise 1

@@ -12,6 +12,8 @@ cd vsc_ngs_workshop
 
 You will see that the complete git repository is now available in your $VSC_DATA.
 
+> Note: These scripts use the thinking cluster, and were last updated in 2016. If you want to use these exercises and scripts, since 2019 you will have to use the Genius cluster. It is possible that not all tools are installed, or the tools will have a higher version. You will need to change a few things, but since you are a bioinformatician, and want to set the step to HPC, this would not be so hard :)...
+
 #PART 1: High Performance Computing
 
 ##Exercise 1

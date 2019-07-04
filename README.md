@@ -22,8 +22,8 @@ Part 2 contains the "genomics" application part of the course:
 
 Part 3 contains a few advanced topics:
 * creation of temporary directories
-* [pika](https://github.com/GenomicsCoreLeuven/pika "pika: the pipeline integration kit for hpc analysis"): the pipeline integration kit for hpc analysis
 * a howto on the installation of own tools, and to make them available in the module system
+* a howto on the basic management of your groups storage, access, software and resources
 
 ##Scripts and Data
 All used data and scripts are available in this repository.

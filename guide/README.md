@@ -75,10 +75,10 @@ module help
 
 | Cluster | Partition | CPUType | #nodes | #cores (threads) per node | Internal disk (Node Scratch) | Useable Memory (RAM) per node | #credits/hour |
 |---------|-----------|---------|--------|---------------------------|------------------------------|-------------------------------|---------------|
-| ThinKing | Ivybridge | Ivybridge | 208 | 20 | 250GB | 60GB (176nodes) - 124GB (32nodes) | 4.76 |
-| ThinKing | Haswell | Haswell | 144 | 24 | 150GB | 60GB (42nodes) - 124GB (96nodes) | 6.68 |
-| Cerebro | Smp1 | Ivybridge | 48 | 10 | shared 10TB | shared 250GB (max 11.77TB) | 3.45 |
-| Cerebro | Smp2 | Ivybridge | 16 | 10 | shared 10TB | shared 124GB (max 1.79TB) | 3.45 |
+| Genius |  | Skylake | 86 | 36 |  | 192GB (32nodes) | 10 |
+| Genius | bigmem | Skylake | 10 | 36 |  | 768B | 10 |
+| Genius | GPGPU | Skylake | 20 | 36 + 4 NVIDEA P100 |  | 192GB |  |
+| Genius | superdome | Skylake | 8 | 14 |  | shared 750B (max 6TB) | 10 |
 
 
 Typical tasks run on the different clusters/partitions:
@@ -86,9 +86,10 @@ Typical tasks run on the different clusters/partitions:
 
 | Cluster | Partition | Task Description | Task Example |
 |---------|-----------|------------------|--------------|
-| ThinKing | Ivybridge | Memory low jobs, with lots of I/O | Alignment, Read Mapping, Variant Calling, Read Counting, ... |
-| ThinKing | Haswell | Memory low jobs, low I/O, high computing power needed | Model Calculations, Sample clustering, Intensive populations studies (Differential expression analysis) | 
-| Cerebro | Smp1 and Smp2 | High memory jobs, computing power less important | De Novo Assemblies, Reference based Assemblies, ... |
+| Genius |  | Memory low jobs, with lots of I/O | Alignment, Read Mapping, Variant Calling, Read Counting, ... |
+| Genius | bigmem | Memory high jobs, with lots of I/O | Small De Novo Assmeblies, Large inmemory jobs (elprep, Halvade, ...) | 
+| Genius | GPGPU | When GPU acceleration is possible | |
+| Genius | superdome | High memory jobs, computing power less important | De Novo Assemblies, Reference based Assemblies, ... |
 
 
 ## Portable Batch System
