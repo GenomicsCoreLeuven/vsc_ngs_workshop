@@ -6,7 +6,19 @@ A quick overview of all available commands and variables.
 Account and groups are managed through: [https://account.vscentrum.be/django/](https://account.vscentrum.be/django/)
 ```bash
 #login to the VSC (vsc3XXXXX is your user id)
+#for thinking and cerebro
 ssh vsc3XXXX@login.hpc.kuleuven.be
+#or
+ssh vsc3XXXX@login2.hpc.kuleuven.be
+
+#for genius
+ssh vsc3XXXX@login1-tier2.hpc.kuleuven.be
+#or
+ssh vsc3XXXX@login2-tier2.hpc.kuleuven.be
+#genius login nodes for visualization:
+ssh -X vsc3XXXX@login3-tier2.hpc.kuleuven.be
+#or
+ssh -X vsc3XXXX@login4-tier2.hpc.kuleuven.be
 ```
 ## Credits
 ```bash
