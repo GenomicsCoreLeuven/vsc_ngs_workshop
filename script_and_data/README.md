@@ -1,4 +1,4 @@
-#Exercise scripts
+# Exercise scripts
 
 This are scripts and data for the exercises on the VSC.
 
@@ -14,9 +14,9 @@ You will see that the complete git repository is now available in your $VSC_DATA
 
 > Note: These scripts use the thinking cluster, and were last updated in 2016. If you want to use these exercises and scripts, since 2019 you will have to use the Genius cluster. It is possible that not all tools are installed, or the tools will have a higher version. You will need to change a few things, but since you are a bioinformatician, and want to set the step to HPC, this would not be so hard :)...
 
-#PART 1: High Performance Computing
+# PART 1: High Performance Computing
 
-##Exercise 1
+## Exercise 1
 Since no tasks can be performed without raw data, and results should be kept for longer periodes, storage is an important feature of a cluster. Therefor the first exercise is to check the different environment variables, and find there complete path.
 Find the path for the following locations:
 
@@ -30,7 +30,7 @@ Find the path for the following locations:
 | Staging | | /staging/leuven/stg_000XX |
 | Archive | | /archive/leuven/arc_000XX |
 
-##Exercise 2
+## Exercise 2
 Computing costs money, therefor the VSC uses a credit based system for the accounting.
 - Get an overview of your current balance
 - Get an overview of your transactions of the last month
@@ -38,7 +38,7 @@ Computing costs money, therefor the VSC uses a credit based system for the accou
 - Get a quote for 20 minutes computing on 2 nodes, 4 processors of the haswell type, using 100Gb of memory
 - Get a quote for 1 hour for both the ivybridge and the haswell processor
 
-##Exercise 3
+## Exercise 3
 This exercise uses the paths.pbs script
 - Open paths.pbs
 - Edit the PBS header (change the mail, and accounting information)
@@ -47,7 +47,7 @@ This exercise uses the paths.pbs script
 - Check the start time and status of the job
 - Check the output of the job
 
-#PART 2: For Genomics
+# PART 2: For Genomics
 Up till now the exercises were ment only as an introduction. Here we start with a more real-life example of a bioinformatics project.
 Assume this population study:
 
@@ -70,7 +70,7 @@ Some more information about Phi X 174:
 - 95% are coding genes, total of 11 genes
 - Used as positive control in Illumina sequencing
 
-##Exercise 4
+## Exercise 4
 A *de novo* assembly of a small circular genome. The basic principle is: reads are put together if they overlap, resulting in a contig. In this case, we have a circular genome, with only 1 chromosome. So in the ultimate case, we end with one contig.
 
 ABySS will be used in this exercise. ABySS is a widely used de Bruijn graph assembler. Since circular genomes are hard to assemble (since there is no clear choose where to cut the genome to make it linear), a large kmer size has to be chosen (so it can split the genome easily in one or multiple contigs).
@@ -80,7 +80,7 @@ ABySS will be used in this exercise. ABySS is a widely used de Bruijn graph asse
 - Launch the abyss.pbs script. Note taht the returned job ID start with a 3.
 - Check the output of the assembly
 
-##Exercise 5
+## Exercise 5
 The next exercise is best to run on thinking.
 - List all loaded modules
 - Unload or Purge these moduels
@@ -90,28 +90,28 @@ In this exercise we are going to map multiple samples against our new assembled 
 
 Our project is a population study of 19 individuals. We will use the reference generated in Exercise 4. If the tasks are split, 20 tasks are needed: the indexing of the genome by the mapping tool (is only needed once, so can be reused), the mapping of the samples (19 samples, so 19 tasks). If the number of individuals would rise more, the number of scripts to run will get to high to be manageable. Therefor the solution is to use parallel jobs.
 
-###A
+### A
 - Open bowtie_batch.pbs
 - Change script (mail, accounting, number of cores?)
 - Variable name?
 - input/output path?
 - Reference genome?
 
-###B
+### B
 - Open prolog script
 - What happens?
 - Check genome path
 - Where is the genome stored?
 
-###C
+### C
 - Open epilog script
 - What happens?
 
-###D
+### D
 - Start job on thinking
 - Check mapping statistics (especially the data for the assembly)
 
-##HomeWork
+## HomeWork
 The samples used in Exercise 5, contains out of 2 populations. In population studies variants that only occur in one of the populations are interseting. FreeBayes is an easy variant calling tool for populations, since it can call variants in multiple samples at the same time. Write a PBS script base on these commands, and execute this on the VSC:
 
 ```bash

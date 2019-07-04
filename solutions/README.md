@@ -1,12 +1,12 @@
-#Exercise Solutions
+# Exercise Solutions
 
 This are solutions for the exercises on the VSC.
 
 > Note: these solutions were made in 2016 for the Thinking cluster. Since 2019, you will have to use the Genius cluster. Therefor some tools and versions are not up to date.
 
-#PART 1: High Performance Computing
+# PART 1: High Performance Computing
 
-##Exercise 1
+## Exercise 1
 Since no tasks can be performed without raw data, and results should be kept for longer periodes, storage is an important feature of a cluster. Therefor the first exercise is to check the different environment variables, and find there complete path.
 Find the path for the following locations:
 
@@ -20,7 +20,7 @@ Find the path for the following locations:
 | Staging | | /staging/leuven/stg_000XX |
 | Archive | | /archive/leuven/arc_000XX |
 
-##Exercise 2
+## Exercise 2
 Computing costs money, therefor the VSC uses a credit based system for the accounting.
 - Get an overview of your current balance
 ```bash
@@ -45,7 +45,7 @@ gquote -l nodes=1:ppn=1:ivybrige,walltime=1:00:00
 gquote -l nodes=1:ppn=1:haswell,walltime=1:00:00
 ```
 
-##Exercise 3
+## Exercise 3
 This exercise uses the paths.pbs script
 - Open paths.pbs
 ```bash
@@ -83,7 +83,7 @@ cat pahts.txt
 #output should be similar to exercise 1
 ```
 
-#PART 2: For Genomics
+# PART 2: For Genomics
 Up till now the exercises were ment only as an introduction. Here we start with a more real-life example of a bioinformatics project.
 Assume this population study:
 
@@ -106,7 +106,7 @@ Some more information about Phi X 174:
 - 95% are coding genes, total of 11 genes
 - Used as positive control in Illumina sequencing
 
-##Exercise 4
+## Exercise 4
 A *de novo* assembly of a small circular genome. The basic principle is: reads are put together if they overlap, resulting in a contig. In this case, we have a circular genome, with only 1 chromosome. So in the ultimate case, we end with one contig.
 
 ABySS will be used in this exercise. ABySS is a widely used de Bruijn graph assembler. Since circular genomes are hard to assemble (since there is no clear choose where to cut the genome to make it linear), a large kmer size has to be chosen (so it can split the genome easily in one or multiple contigs).
@@ -135,7 +135,7 @@ qsub abyss.pbs
 ls $VSC_DATA/vsc_ngs_workshop/results/denovo
 ```
 
-##Exercise 5
+## Exercise 5
 The next exercise is best to run on thinking.
 - List all loaded modules
 ```bash
@@ -155,7 +155,7 @@ In this exercise we are going to map multiple samples against our new assembled 
 
 Our project is a population study of 19 individuals. We will use the reference generated in Exercise 4. If the tasks are split, 20 tasks are needed: the indexing of the genome by the mapping tool (is only needed once, so can be reused), the mapping of the samples (19 samples, so 19 tasks). If the number of individuals would rise more, the number of scripts to run will get to high to be manageable. Therefor the solution is to use parallel jobs.
 
-###A
+### A
 - Open bowtie_batch.pbs
 ```bash
 nano bowtie_batch.pbs
@@ -177,7 +177,7 @@ $SAMPLE
 $VSC_SCRATCH/genome/genome
 ```
 
-###B
+### B
 - Open prolog script
 - What happens?
 ```
@@ -188,11 +188,11 @@ The created genome in exercise 4 is copied to $VSC_SCRATCH/genome/ and is rename
 $VSC_SCRATCH/genome/genome
 ```
 
-###C
+### C
 - Open epilog script
 - What happens?
 
-###D
+### D
 - Start job on thinking
 ```bash
 source switch_to_2015a
@@ -203,7 +203,7 @@ wsub -prolog bowtie_prolog.sh -batch bowtie_batch.pbs -epilog bowtie_epilog.sh -
 ```
 - Check mapping statistics (especially the data for the assembly)
 
-##HomeWork
+## HomeWork
 The samples used in Exercise 5, contains out of 2 populations. In population studies variants that only occur in one of the populations are interseting. FreeBayes is an easy variant calling tool for populations, since it can call variants in multiple samples at the same time. Write a PBS script base on these commands, and execute this on the VSC:
 
 ```bash

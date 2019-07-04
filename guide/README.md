@@ -1,4 +1,4 @@
-#Cheat Sheet
+# Cheat Sheet
 
 A quick overview of all available commands and variables.
 
