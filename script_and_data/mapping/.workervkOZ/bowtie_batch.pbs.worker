@@ -1,0 +1,874 @@
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_10 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_10*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_10".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_10 --rg ID=test_10 --rg LB=test_10 --rg SM=test_10 --rg PU=test_10 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_10.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_10;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_10.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_10.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_10* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_11 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_11*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_11".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_11 --rg ID=test_11 --rg LB=test_11 --rg SM=test_11 --rg PU=test_11 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_11.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_11;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_11.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_11.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_11* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_12 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_12*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_12".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_12 --rg ID=test_12 --rg LB=test_12 --rg SM=test_12 --rg PU=test_12 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_12.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_12;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_12.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_12.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_12* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_13 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_13*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_13".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_13 --rg ID=test_13 --rg LB=test_13 --rg SM=test_13 --rg PU=test_13 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_13.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_13;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_13.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_13.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_13* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_1 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_1*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_1".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_1 --rg ID=test_1 --rg LB=test_1 --rg SM=test_1 --rg PU=test_1 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_1.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_1;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_1.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_1.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_1* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_2 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_2*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_2".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_2 --rg ID=test_2 --rg LB=test_2 --rg SM=test_2 --rg PU=test_2 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_2.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_2;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_2.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_2.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_2* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_3 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_3*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_3".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_3 --rg ID=test_3 --rg LB=test_3 --rg SM=test_3 --rg PU=test_3 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_3.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_3;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_3.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_3.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_3* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_4 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_4*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_4".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_4 --rg ID=test_4 --rg LB=test_4 --rg SM=test_4 --rg PU=test_4 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_4.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_4;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_4.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_4.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_4* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_5 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_5*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_5".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_5 --rg ID=test_5 --rg LB=test_5 --rg SM=test_5 --rg PU=test_5 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_5.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_5;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_5.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_5.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_5* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_6 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_6*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_6".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_6 --rg ID=test_6 --rg LB=test_6 --rg SM=test_6 --rg PU=test_6 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_6.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_6;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_6.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_6.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_6* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_7 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_7*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_7".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_7 --rg ID=test_7 --rg LB=test_7 --rg SM=test_7 --rg PU=test_7 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_7.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_7;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_7.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_7.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_7* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_8 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_8*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_8".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_8 --rg ID=test_8 --rg LB=test_8 --rg SM=test_8 --rg PU=test_8 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_8.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_8;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_8.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_8.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_8* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_9 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_9*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_9".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_9 --rg ID=test_9 --rg LB=test_9 --rg SM=test_9 --rg PU=test_9 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_9.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_9;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_9.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_9.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_9* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_assembly_data variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_assembly_data*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_assembly_data".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_assembly_data --rg ID=test_assembly_data --rg LB=test_assembly_data --rg SM=test_assembly_data --rg PU=test_assembly_data --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_assembly_data.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_assembly_data;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_assembly_data.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_assembly_data.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_assembly_data* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_ncbi_sample1 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_ncbi_sample1*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_ncbi_sample1".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_ncbi_sample1 --rg ID=test_ncbi_sample1 --rg LB=test_ncbi_sample1 --rg SM=test_ncbi_sample1 --rg PU=test_ncbi_sample1 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_ncbi_sample1.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_ncbi_sample1;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_ncbi_sample1.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_ncbi_sample1.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_ncbi_sample1* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_ncbi_sample2 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_ncbi_sample2*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_ncbi_sample2".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_ncbi_sample2 --rg ID=test_ncbi_sample2 --rg LB=test_ncbi_sample2 --rg SM=test_ncbi_sample2 --rg PU=test_ncbi_sample2 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_ncbi_sample2.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_ncbi_sample2;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_ncbi_sample2.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_ncbi_sample2.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_ncbi_sample2* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_ncbi_sample3 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_ncbi_sample3*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_ncbi_sample3".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_ncbi_sample3 --rg ID=test_ncbi_sample3 --rg LB=test_ncbi_sample3 --rg SM=test_ncbi_sample3 --rg PU=test_ncbi_sample3 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_ncbi_sample3.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_ncbi_sample3;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_ncbi_sample3.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_ncbi_sample3.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_ncbi_sample3* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_ncbi_sample4 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_ncbi_sample4*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_ncbi_sample4".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_ncbi_sample4 --rg ID=test_ncbi_sample4 --rg LB=test_ncbi_sample4 --rg SM=test_ncbi_sample4 --rg PU=test_ncbi_sample4 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_ncbi_sample4.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_ncbi_sample4;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_ncbi_sample4.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_ncbi_sample4.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_ncbi_sample4* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
+
+#Here we set some variables, for the processing of the data.
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
+GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
+SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
+SCRATCH_DIR=$VSC_SCRATCH;
+OUTPUT_DIR="$GIT_DIR/results/mapping";
+
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome";	#This must be the directory where the genome index is (see prolog)
+
+#Here a tmp directory is created, specially for this job
+mkdir -p $SCRATCH_DIR;
+TMPDIR=$SCRATCH_DIR;
+TMP_DIR=`mktemp -d -t tmp.XXXXXXXX`;
+cd $TMP_DIR;
+
+#This initiates the copy command. Note that here the test_ncbi_sample5 variable is used. This variable comes from the sample data file.
+rsync -ahr $SAMPLE_DIR/test_ncbi_sample5*.fastq.gz .;
+gunzip *gz;
+FASTQ_FILE=$TMP_DIR/test_ncbi_sample5".R1.fastq";
+
+#Do the actual mapping, using bowtie2
+bowtie2 -q -p 1 --seed 1 --local --rg-id test_ncbi_sample5 --rg ID=test_ncbi_sample5 --rg LB=test_ncbi_sample5 --rg SM=test_ncbi_sample5 --rg PU=test_ncbi_sample5 --rg PL=illumina --rg CN=GenomicsCoreLeuven -x $GENOME_DIR $FASTQ_FILE > $TMP_DIR/mapped.sam 2> $TMP_DIR/test_ncbi_sample5.bowtie2.log;
+
+rm *fastq;	#clean the tmp directory: remove the input fastq
+
+#BAM modifications
+samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
+rm -r $TMP_DIR/mapped.sam;
+samtools sort $TMP_DIR/mapped.bam $TMP_DIR/test_ncbi_sample5;	#sort bam file according to chromosome position (previous in fastq order)
+rm -r $TMP_DIR/mapped.bam;
+samtools index -b $TMP_DIR/test_ncbi_sample5.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
+rm $TMP_DIR/test_ncbi_sample5.sorted.bam;
+
+#copy the data to the output
+mkdir -p $OUTPUT_DIR;
+cd $OUTPUT_DIR;
+rsync -ahr $TMP_DIR/test_ncbi_sample5* .;
+rm -rf $TMP_DIR;
+
+
+
+
+#####--END

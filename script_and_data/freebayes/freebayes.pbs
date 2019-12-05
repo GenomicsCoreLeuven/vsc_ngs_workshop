@@ -2,7 +2,7 @@
 #PBS -l walltime=12:00:00
 #PBS -l mem=20gb
 #PBS -l nodes=1:ppn=1
-#PBS -M noreply@genomicscore.be
+#PBS -M alvaro.cortes@uzleuven.be
 #PBS -N freebayes
 #PBS -A default_project
 source switch_to_2015a

@@ -1,0 +1,22 @@
+`test_assembly_data.R1.fastq': discarded 2 reads shorter than 31 bases
+contigs-0.fa:0: warning: file is empty
+contigs-1.fa:0: warning: file is empty
+contigs-3.fa:0: warning: file is empty
+contigs-4.fa:0: warning: file is empty
+contigs-5.fa:0: warning: file is empty
+contigs-6.fa:0: warning: file is empty
+contigs-7.fa:0: warning: file is empty
+contigs-8.fa:0: warning: file is empty
+contigs-9.fa:0: warning: file is empty
+snp-0.fa:0: warning: file is empty
+snp-1.fa:0: warning: file is empty
+snp-2.fa:0: warning: file is empty
+snp-3.fa:0: warning: file is empty
+snp-4.fa:0: warning: file is empty
+snp-5.fa:0: warning: file is empty
+snp-6.fa:0: warning: file is empty
+snp-7.fa:0: warning: file is empty
+snp-8.fa:0: warning: file is empty
+snp-9.fa:0: warning: file is empty
+[r22i27n12:04250] 11 more processes have sent help message help-opal-shmem-mmap.txt / mmap on nfs
+[r22i27n12:04250] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages

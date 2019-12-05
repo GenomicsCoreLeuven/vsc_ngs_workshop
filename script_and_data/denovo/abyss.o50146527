@@ -1,0 +1,370 @@
+time: 300
+nodes: 1
+procs: 10
+account string: lp_bioinfworkshop6dec
+queue: q1h
+========================================================================
+/apps/leuven/skylake/2018a/software/OpenMPI/2.1.2-GCC-6.4.0-2.28/bin/mpirun -np 10 ABYSS-P -k31 -q3    --coverage-hist=coverage.hist -s genome_k31-bubbles.fa  -o genome_k31-1.fa  test_assembly_data.R1.fastq
+--------------------------------------------------------------------------
+WARNING: Open MPI will create a shared memory backing file in a
+directory that appears to be mounted on a network filesystem.
+Creating the shared memory backup file on a network file system, such
+as NFS or Lustre is not recommended -- it may cause excessive network
+traffic to your file servers and/or cause shared memory traffic in
+Open MPI to be much slower than expected.
+
+You may want to check what the typical temporary directory is on your
+node.  Possible sources of the location of this temporary directory
+include the $TEMPDIR, $TEMP, and $TMP environment variables.
+
+Note, too, that system administrators can set a list of filesystems
+where Open MPI is disallowed from creating temporary files by setting
+the MCA parameter "orte_no_session_dir".
+
+  Local host: r22i27n12
+  Filename:   /scratch/leuven/314/vsc31420/openmpi-sessions-2531420@r22i27n12_0/64799/1/6/vader_segment.r22i27n12.6
+
+You can set the MCA paramter shmem_mmap_enable_nfs_warning to 0 to
+disable this message.
+--------------------------------------------------------------------------
+ABySS 2.0.2
+ABYSS-P -k31 -q3 --coverage-hist=coverage.hist -s genome_k31-bubbles.fa -o genome_k31-1.fa test_assembly_data.R1.fastq
+Running on 10 processors
+4: Running on host r22i27n12
+0: Running on host r22i27n12
+2: Running on host r22i27n12
+3: Running on host r22i27n12
+6: Running on host r22i27n12
+7: Running on host r22i27n12
+8: Running on host r22i27n12
+9: Running on host r22i27n12
+1: Running on host r22i27n12
+5: Running on host r22i27n12
+0: Reading `test_assembly_data.R1.fastq'...
+0: Loaded 891 k-mer.
+9: Loaded 849 k-mer.
+5: Loaded 902 k-mer.
+2: Loaded 872 k-mer.
+4: Loaded 832 k-mer.
+1: Loaded 855 k-mer.
+3: Loaded 840 k-mer.
+6: Loaded 830 k-mer.
+7: Loaded 832 k-mer.
+8: Loaded 921 k-mer.
+Loaded 8624 k-mer. At least 345 kB of RAM is required.
+Minimum k-mer coverage is 2
+Using a coverage threshold of 3...
+The median k-mer coverage is 9
+The reconstruction is 5328
+The k-mer coverage threshold is 3
+Setting parameter e (erode) to 3
+Setting parameter E (erodeStrand) to 1
+Setting parameter c (coverage) to 3
+Finding adjacenct k-mer...
+8: Added 1823 edges.
+9: Added 1685 edges.
+5: Added 1782 edges.
+4: Added 1659 edges.
+1: Added 1703 edges.
+3: Added 1677 edges.
+6: Added 1649 edges.
+7: Added 1649 edges.
+2: Added 1723 edges.
+0: Added 1770 edges.
+Added 17120 edges.
+Eroding tips...
+2: Eroded 38 tips.
+4: Eroded 26 tips.
+3: Eroded 25 tips.
+6: Eroded 32 tips.
+7: Eroded 46 tips.
+1: Eroded 31 tips.
+0: Eroded 54 tips.
+8: Eroded 84 tips.
+9: Eroded 44 tips.
+5: Eroded 70 tips.
+1: Eroded 268 tips.
+0: Eroded 280 tips.
+8: Eroded 251 tips.
+6: Eroded 278 tips.
+9: Eroded 285 tips.
+2: Eroded 297 tips.
+7: Eroded 296 tips.
+4: Eroded 276 tips.
+3: Eroded 290 tips.
+5: Eroded 247 tips.
+Eroded 3218 tips.
+Pruning tips shorter than 1 bp...
+9: Pruned 0 tips.
+0: Pruned 0 tips.
+3: Pruned 0 tips.
+5: Pruned 0 tips.
+8: Pruned 0 tips.
+6: Pruned 0 tips.
+2: Pruned 0 tips.
+4: Pruned 0 tips.
+7: Pruned 0 tips.
+1: Pruned 0 tips.
+Pruning tips shorter than 2 bp...
+1: Pruned 0 tips.
+3: Pruned 0 tips.
+5: Pruned 0 tips.
+8: Pruned 0 tips.
+9: Pruned 0 tips.
+6: Pruned 0 tips.
+4: Pruned 0 tips.
+0: Pruned 0 tips.
+7: Pruned 0 tips.
+2: Pruned 0 tips.
+Pruning tips shorter than 4 bp...
+4: Pruned 0 tips.
+1: Pruned 0 tips.
+3: Pruned 0 tips.
+5: Pruned 0 tips.
+8: Pruned 0 tips.
+9: Pruned 0 tips.
+6: Pruned 0 tips.
+0: Pruned 0 tips.
+7: Pruned 0 tips.
+2: Pruned 0 tips.
+Pruning tips shorter than 8 bp...
+6: Pruned 0 tips.
+4: Pruned 0 tips.
+1: Pruned 0 tips.
+3: Pruned 0 tips.
+5: Pruned 0 tips.
+8: Pruned 0 tips.
+9: Pruned 0 tips.
+0: Pruned 0 tips.
+7: Pruned 0 tips.
+9: Pruned 0 tips.
+9: Pruned 0 tips.
+9: Marked 2 edges of 1 ambiguous vertices.
+Pruning tips shorter than 16 bp...
+0: Pruned 0 tips.
+Pruning tips shorter than 31 bp...
+0: Pruned 0 tips.
+Pruned 0 tips in 5 rounds.
+Marking ambiguous branches...
+0: Marked 0 edges of 0 ambiguous vertices.
+Marked 2 ambiguous branches.
+Removing low-coverage contigs (mean k-mer coverage < 3)...
+0: Found 31 k-mer in 1 contigs before removing low-coverage contigs.
+Removed 31 k-mer in 1 low-coverage contigs.
+6: Pruned 0 tips.
+6: Pruned 0 tips.
+6: Marked 2 edges of 1 ambiguous vertices.
+4: Pruned 0 tips.
+4: Pruned 0 tips.
+4: Marked 0 edges of 0 ambiguous vertices.
+4: Found 0 k-mer in 0 contigs before removing low-coverage contigs.
+Removed 0 k-mer in 0 low-coverage contigs.
+1: Pruned 0 tips.
+1: Pruned 0 tips.
+1: Marked 0 edges of 0 ambiguous vertices.
+1: Found 0 k-mer in 0 contigs before removing low-coverage contigs.
+Removed 0 k-mer in 0 low-coverage contigs.
+3: Pruned 0 tips.
+3: Pruned 0 tips.
+3: Marked 0 edges of 0 ambiguous vertices.
+3: Found 0 k-mer in 0 contigs before removing low-coverage contigs.
+Removed 0 k-mer in 0 low-coverage contigs.
+5: Pruned 0 tips.
+5: Pruned 0 tips.
+5: Marked 0 edges of 0 ambiguous vertices.
+5: Found 0 k-mer in 0 contigs before removing low-coverage contigs.
+Removed 0 k-mer in 0 low-coverage contigs.
+8: Pruned 0 tips.
+8: Pruned 0 tips.
+8: Marked 0 edges of 0 ambiguous vertices.
+8: Found 31 k-mer in 1 contigs before removing low-coverage contigs.
+Removed 0 k-mer in 0 low-coverage contigs.
+2: Pruned 0 tips.
+2: Pruned 0 tips.
+2: Pruned 0 tips.
+2: Marked 0 edges of 0 ambiguous vertices.
+7: Pruned 0 tips.
+7: Pruned 0 tips.
+7: Marked 0 edges of 0 ambiguous vertices.
+7: Found 0 k-mer in 0 contigs before removing low-coverage contigs.
+Removed 0 k-mer in 0 low-coverage contigs.
+9: Found 2103 k-mer in 1 contigs before removing low-coverage contigs.
+Removed 0 k-mer in 0 low-coverage contigs.
+6: Found 3241 k-mer in 1 contigs before removing low-coverage contigs.
+Removed 0 k-mer in 0 low-coverage contigs.
+2: Found 0 k-mer in 0 contigs before removing low-coverage contigs.
+Removed 0 k-mer in 0 low-coverage contigs.
+Found 5406 k-mer in 4 contigs before removing low-coverage contigs.
+Removed 31 k-mer in 1 low-coverage contigs.
+Splitting ambiguous branches...
+6: Split 0 ambigiuous branches.
+7: Split 0 ambigiuous branches.
+2: Split 0 ambigiuous branches.
+9: Split 0 ambigiuous branches.
+4: Split 0 ambigiuous branches.
+3: Split 0 ambigiuous branches.
+5: Split 0 ambigiuous branches.
+8: Split 0 ambigiuous branches.
+0: Split 1 ambigiuous branches.
+1: Split 1 ambigiuous branches.
+Split 2 ambiguous branches.
+Removed 31 marked k-mer.
+Eroding tips...
+7: Eroded 0 tips.
+3: Eroded 0 tips.
+6: Eroded 0 tips.
+0: Eroded 0 tips.
+2: Eroded 0 tips.
+9: Eroded 0 tips.
+4: Eroded 0 tips.
+8: Eroded 0 tips.
+5: Eroded 0 tips.
+1: Eroded 0 tips.
+Pruning tips shorter than 1 bp...
+4: Pruned 0 tips.
+3: Pruned 0 tips.
+6: Pruned 0 tips.
+5: Pruned 0 tips.
+9: Pruned 0 tips.
+8: Pruned 0 tips.
+0: Pruned 0 tips.
+2: Pruned 0 tips.
+7: Pruned 0 tips.
+1: Pruned 0 tips.
+Pruning tips shorter than 2 bp...
+8: Pruned 0 tips.
+4: Pruned 0 tips.
+3: Pruned 0 tips.
+7: Pruned 0 tips.
+1: Pruned 0 tips.
+6: Pruned 0 tips.
+5: Pruned 0 tips.
+2: Pruned 0 tips.
+9: Pruned 0 tips.
+0: Pruned 0 tips.
+Pruning tips shorter than 4 bp...
+9: Pruned 0 tips.
+8: Pruned 0 tips.
+4: Pruned 0 tips.
+3: Pruned 0 tips.
+6: Pruned 0 tips.
+5: Pruned 0 tips.
+0: Pruned 0 tips.
+7: Pruned 0 tips.
+1: Pruned 0 tips.
+2: Pruned 0 tips.
+Pruning tips shorter than 8 bp...
+5: Pruned 0 tips.
+9: Pruned 0 tips.
+8: Pruned 0 tips.
+4: Pruned 0 tips.
+3: Pruned 0 tips.
+6: Pruned 0 tips.
+0: Pruned 0 tips.
+7: Pruned 0 tips.
+1: Pruned 0 tips.
+2: Pruned 0 tips.
+Pruning tips shorter than 16 bp...
+6: Pruned 0 tips.
+5: Pruned 0 tips.
+9: Pruned 0 tips.
+8: Pruned 0 tips.
+4: Pruned 0 tips.
+3: Pruned 0 tips.
+0: Pruned 0 tips.
+7: Pruned 0 tips.
+1: Pruned 0 tips.
+2: Pruned 0 tips.
+Pruning tips shorter than 31 bp...
+3: Pruned 0 tips.
+6: Pruned 0 tips.
+5: Pruned 0 tips.
+9: Pruned 0 tips.
+8: Pruned 0 tips.
+4: Pruned 0 tips.
+0: Pruned 0 tips.
+1: Pruned 0 tips.
+7: Pruned 0 tips.
+2: Pruned 0 tips.
+Pruned 0 tips in 5 rounds.
+Popping bubbles...
+0: Removed 0 bubbles.
+1: Removed 0 bubbles.
+2: Removed 0 bubbles.
+3: Removed 0 bubbles.
+4: Removed 0 bubbles.
+5: Removed 0 bubbles.
+6: Removed 0 bubbles.
+7: Removed 0 bubbles.
+8: Removed 0 bubbles.
+9: Removed 0 bubbles.
+Removed 0 bubbles.
+Marking ambiguous branches...
+7: Marked 0 edges of 0 ambiguous vertices.
+3: Marked 0 edges of 0 ambiguous vertices.
+2: Marked 0 edges of 0 ambiguous vertices.
+4: Marked 0 edges of 0 ambiguous vertices.
+9: Marked 0 edges of 0 ambiguous vertices.
+6: Marked 0 edges of 0 ambiguous vertices.
+5: Marked 0 edges of 0 ambiguous vertices.
+8: Marked 0 edges of 0 ambiguous vertices.
+0: Marked 0 edges of 0 ambiguous vertices.
+1: Marked 0 edges of 0 ambiguous vertices.
+Marked 0 ambiguous branches.
+Assembling...
+0: Assembled 0 k-mer in 0 contigs.
+4: Assembled 0 k-mer in 0 contigs.
+9: Assembled 0 k-mer in 0 contigs.
+8: Assembled 0 k-mer in 0 contigs.
+6: Assembled 0 k-mer in 0 contigs.
+3: Assembled 0 k-mer in 0 contigs.
+5: Assembled 0 k-mer in 0 contigs.
+1: Assembled 0 k-mer in 0 contigs.
+7: Assembled 0 k-mer in 0 contigs.
+2: Assembled 5375 k-mer in 1 contigs.
+Assembled 5375 k-mer in 1 contigs.
+Concatenating fasta files to genome_k31-1.fa
+Concatenating fasta files to genome_k31-bubbles.fa
+Done.
+AdjList    -k31 -m50 --dot genome_k31-1.fa >genome_k31-1.dot
+abyss-filtergraph  --dot   -k31 -g genome_k31-2.dot1 genome_k31-1.dot genome_k31-1.fa >genome_k31-1.path
+MergeContigs   -k31 -g genome_k31-2.dot -o genome_k31-2.fa genome_k31-1.fa genome_k31-2.dot1 genome_k31-1.path
+PopBubbles  --dot -j10 -k31  -p0.9  -g genome_k31-3.dot genome_k31-2.fa genome_k31-2.dot >genome_k31-2.path
+MergeContigs   -k31 -o genome_k31-3.fa genome_k31-2.fa genome_k31-2.dot genome_k31-2.path
+awk '!/^>/ {x[">" $1]=1; next} {getline s} $1 in x {print $0 "\n" s}' \
+	genome_k31-2.path genome_k31-1.fa >genome_k31-indel.fa
+ln -sf genome_k31-3.fa genome_k31-unitigs.fa
+abyss-fac   genome_k31-unitigs.fa |tee genome_k31-stats.tab
+n	n:500	L50	min	N80	N50	N20	E-size	max	sum	name
+1	1	1	5405	5405	5405	5405	5405	5405	5405	genome_k31-unitigs.fa
+ln -sf genome_k31-stats.tab genome_k31-stats
+tr '\t' , <genome_k31-stats.tab >genome_k31-stats.csv
+abyss-tabtomd genome_k31-stats.tab >genome_k31-stats.md
+========================================================================
+Epilogue args:
+Date: Thu Dec  5 11:15:12 CET 2019
+Allocated nodes:
+r22i27n12
+r22i27n12
+r22i27n12
+r22i27n12
+r22i27n12
+r22i27n12
+r22i27n12
+r22i27n12
+r22i27n12
+r22i27n12
+Job ID: 50146527.tier2-p-moab-2.tier2.hpc.kuleuven.be
+User ID: vsc31420
+Group ID: vsc31420
+Job Name: abyss
+Session ID: 3809
+Resource List: walltime=00:05:00,mem=100gb,nodes=1:ppn=10,neednodes=1:ppn=10,pmem=5gb
+Resources Used: cput=00:00:04,vmem=289520kb,walltime=00:00:11,mem=3556kb,energy_used=0
+Queue Name: q1h
+Account String: lp_bioinfworkshop6dec
+-------------------------------------------------------------------------
+time: 11
+nodes: 1
+procs: 10
+account: lp_bioinfworkshop6dec

@@ -1,0 +1,69 @@
+#!/bin/bash -l
+#PBS -l walltime=00:10:00
+#PBS -l mem=100gb
+#PBS -l nodes=1:ppn=20:ivybridge
+#PBS -M alvaro.cortes@kuleuven.be
+#PBS -m aeb
+#PBS -N bowtie_mapping
+#PBS -A lp_biogenomics
+
+
+
+# load appropriate MPI implementation module
+module unload intel
+module purge
+module use 
+module load intel/2018a
+
+# set worker application and options
+WORKER_APPL="/vsc-hard-mounts/leuven-apps/skylake/2018a/software/worker/1.6.10-intel-2018a/lib/../bin/worker"
+
+# get the job ID and to compute appropriate names
+WORKER_JOBID=`echo $PBS_JOBID | sed 's/\([0-9][0-9]*\).*/\1/'`
+
+# change to the working directory
+cd $PBS_O_WORKDIR
+
+# rename artifacts consistently with job name and ID scheme
+mv .workerAs9J/bowtie_batch.pbs.worker ${PBS_JOBNAME}.sh${WORKER_JOBID}
+mv .workerAs9J/bowtie_batch.pbs.run ${PBS_JOBNAME}.run${WORKER_JOBID}
+mv .workerAs9J/worker.pbs ${PBS_JOBNAME}.pbs${WORKER_JOBID}
+
+# compute prolog option
+
+WORKER_PROLOG=""
+
+# master sleep time to avoid MPI_Test spinning load
+WORKER_SLEEP="-s 10000"
+
+# compute batch option
+WORKER_BATCH="-b ${PBS_JOBNAME}.sh${WORKER_JOBID}"
+
+# compute epilog option
+
+WORKER_EPILOG=""
+
+rm -rf .workerAs9J/
+
+# determine the number of processes to run, modify later if master
+# or threaded switch is active
+n_proc=$(cat ${PBS_NODEFILE} | wc -l)
+
+# only applicable when the master switch is on
+# create host file to use for this job and compute number of cores
+
+
+# only applicable when the threaded swith is on
+
+
+# compute log option
+WORKER_LOG_FILE="-l ${PBS_JOBNAME}.log${WORKER_JOBID}"
+
+# compute verbose option
+WORKER_VERBOSE=""
+
+# start the worker
+mpirun  ${mpi_opt} ${ppn_opt} \
+    "${WORKER_APPL}" ${WORKER_PROLOG} ${WORKER_BATCH} ${WORKER_EPILOG} \
+                   ${WORKER_LOG_FILE} ${WORKER_VERBOSE} ${WORKER_SLEEP} \
+                   ${WORKER_THREADS}

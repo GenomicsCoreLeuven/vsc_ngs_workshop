@@ -1,22 +1,21 @@
 #!/bin/bash -l
 #PBS -l walltime=00:05:00
-#PBS -l mem=240gb
+#PBS -l mem=100gb
 #PBS -l nodes=1:ppn=10
-#PBS -M noreply@genomicscore.be
+#PBS -M your.email@kuleuven.be
 #PBS -m aeb
 #PBS -N abyss
-#PBS -A default_project
-#PBS -l partition=smp1
+#PBS -A lp_bioinfworkshop6dec
 ##Above you see the PBS headers.
 ##Here all modules are loaded. 
-module use /apps/leuven/thinking/2015a/modules/all	#This line is similar as the "source switch_to_2015a" command, but historically the source switch did not perform well on cerebro
-module load ABySS/1.9.0-intel-2015a-Python-2.7.9	#This loads the abyss module
+#module use /apps/leuven/thinking/2015a/modules/all	#This line is similar as the "source switch_to_2015a" command, but historically the source switch did not perform well on cerebro
+module load ABySS/2.0.2-foss-2018a
 
 #Here we set some variables, for the processing of the data.
-CLONE_DIR="$VSC_DATA";	#This one must be the directory where you performed the git clone
+CLONE_DIR="/staging/leuven/stg_00019/workshop";	#This one must be the directory where you performed the git clone
 GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
 INPUT_DIR="$GIT_DIR/script_and_data/denovo";
-SCRATCH_DIR=$VSC_SCRATCH_NODE;
+SCRATCH_DIR=$VSC_SCRATCH;
 OUTPUT_DIR="$GIT_DIR/results/denovo";
 
 #Here a tmp directory is created, specially for this job

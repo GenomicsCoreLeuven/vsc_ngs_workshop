@@ -1,24 +1,23 @@
 #!/bin/bash -l
 #PBS -l walltime=00:10:00
-#PBS -l mem=100gb
-#PBS -l nodes=1:ppn=10:ivybridge
-#PBS -M noreply@genomicscore.be
+#PBS -l mem=64gb
+#PBS -l nodes=1:ppn=36
+#PBS -M your.email@kuleuven.be
 #PBS -m aeb
 #PBS -N bowtie_mapping
-#PBS -A default_project
+#PBS -A lp_biogenomics
 
-module use /apps/leuven/thinking/2015a/modules/all 
-module load Bowtie2/2.2.4-intel-2015a
-module load SAMtools/1.1-intel-2015a
+module load Bowtie2/2.3.4.3-foss-2018a
+module load SAMtools/
 
 #Here we set some variables, for the processing of the data.
-CLONE_DIR="$VSC_DATA";  #This one must be the directory where you performed the git clone
+CLONE_DIR="/staging/leuven/stg_00019/workshop";  #This one must be the directory where you performed the git clone
 GIT_DIR="$CLONE_DIR/vsc_ngs_workshop";
 SAMPLE_DIR="$GIT_DIR/script_and_data/mapping";
-SCRATCH_DIR=$VSC_SCRATCH_NODE;
+SCRATCH_DIR=$VSC_SCRATCH;
 OUTPUT_DIR="$GIT_DIR/results/mapping";
 
-GENOME_DIR="$VSC_SCRATCH/genome/genome";	#This must be the directory where the genome index is (see prolog)
+GENOME_DIR="/staging/leuven/stg_00019/workshop/vsc_ngs_workshop/genome/genome";	#This must be the directory where the genome index is (see prolog)
 
 #Here a tmp directory is created, specially for this job
 mkdir -p $SCRATCH_DIR;
@@ -39,7 +38,7 @@ rm *fastq;	#clean the tmp directory: remove the input fastq
 #BAM modifications
 samtools view -bS $TMP_DIR/mapped.sam > $TMP_DIR/mapped.bam;	#sam file to bam file
 rm -r $TMP_DIR/mapped.sam;
-samtools sort $TMP_DIR/mapped.bam $TMP_DIR/$SAMPLE;	#sort bam file according to chromosome position (previous in fastq order)
+samtools sort $TMP_DIR/mapped.bam > $TMP_DIR/$SAMPLE.bam;	#sort bam file according to chromosome position (previous in fastq order)
 rm -r $TMP_DIR/mapped.bam;
 samtools index -b $TMP_DIR/$SAMPLE.bam;		#index the bam file (used for fast access, like in IGV, or with variant calling)
 rm $TMP_DIR/$SAMPLE.sorted.bam;
